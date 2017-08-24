@@ -125,7 +125,7 @@ class MultNode(InternalNode):
         InternalNode.__init__(self, node_id, "*", 1)
 
     def formal(self):
-        return "(" + self._nodes[0].formal() + " .* " + self._nodes[1].formal() + ")"
+        return "(" + self._nodes[0].formal() + " * " + self._nodes[1].formal() + ")"
 
     def op_simplify(self):
         # If one or both of the arguments are zero, return zero
@@ -163,7 +163,7 @@ class DivisionNode(InternalNode):
         InternalNode.__init__(self, node_id, "/", 1)
 
     def formal(self):
-        return "(my_div(" + self._nodes[0].formal() + "," + self._nodes[1].formal() + "))"
+        return "((" + self._nodes[0].formal() + ")/(" + self._nodes[1].formal() + "))"
 
     def _process_division(self, dividend, divisor):
         if type(divisor) == np.ndarray:
@@ -211,7 +211,7 @@ class SineNode(InternalNode):
         InternalNode.__init__(self, node_id, "sin", 3)
 
     def formal(self):
-        return "sin(" + self._nodes[0].formal() + ")"
+        return "np.sin(" + self._nodes[0].formal() + ")"
 
     def op_simplify(self):
         if not self._nodes[0].is_sensor():
@@ -236,7 +236,7 @@ class CosineNode(InternalNode):
         InternalNode.__init__(self, node_id, "cos", 3)
 
     def formal(self):
-        return "cos(" + self._nodes[0].formal() + ")"
+        return "np.cos(" + self._nodes[0].formal() + ")"
 
     def op_simplify(self):
         if not self._nodes[0].is_sensor():
@@ -263,7 +263,7 @@ class LogarithmNode(InternalNode):
         InternalNode.__init__(self, node_id, "log", 5)
 
     def formal(self):
-        return "my_log(" + self._nodes[0].formal() + ")"
+        return "np.log(" + self._nodes[0].formal() + ")"
 
     def _process_arg(self, arg):
         if type(arg) == np.ndarray:
@@ -301,7 +301,7 @@ class ExponentialNode(InternalNode):
         InternalNode.__init__(self, node_id, "exp", 5)
 
     def formal(self):
-        return "exp(" + self._nodes[0].formal() + ")"
+        return "np.exp(" + self._nodes[0].formal() + ")"
 
     def op_simplify(self):
         if not self._nodes[0].is_sensor():
@@ -333,7 +333,7 @@ class TanhNode(InternalNode):
         InternalNode.__init__(self, node_id, "tanh", 5)
 
     def formal(self):
-        return "tanh(" + self._nodes[0].formal() + ")"
+        return "np.tanh(" + self._nodes[0].formal() + ")"
 
     def op_simplify(self):
         if not self._nodes[0].is_sensor():
